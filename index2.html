@@ -9,84 +9,64 @@
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
         <link rel="stylesheet" href="bower_components/angular-ui-growl/css/growl.css"/>
+        <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css">
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
 
-        <!-- Importações de framworks  -->
+        <!-- Importações de frameworks  -->
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/angular-messages/angular-messages.js"></script>
         <script src="bower_components/angular-ui-growl/src/growl.js"></script>
+        <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-aria/angular-aria.js"></script>
+        <script src="bower_components/angular-material/angular-material.js"></script>
 
         <!-- Importações do negócio  -->
         <script src="app/js/app.js"></script>
         <script src="app/js/IndexController2.js"></script>
+        <script src="app/js/service/alert-service.js"></script>
 
 
         <link rel="stylesheet" href="app/css/app.css"/>
     </head>
     <body ng-app="app">
         <div ng-controller="IndexController2" class="container container-fluid">
-            <div class=" panel panel-primary teste-css">
+            <div class=" panel panel-primary">
                 <div class="page-header"><b>Cadastro</b></div>
+            <!-- form novalidate name="formInit" ng-submit="save()" -->
                 <div class="panel-body">
-                    <form novalidate name="formInit" ng-submit="save()">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="tiNome">
-                                        <label>Nome:</label>
-                                        <span class="fa fa-asterisk" style="color: red"/>
-                                    </label>
-                                    <input id="tiNome"
-                                           class="form-control"
-                                           placeholder="Informe seu nome"
-                                           required
-                                           type="text"
-                                           ng-model="viewModel.nome"
-                                           name="tiNome"
-                                           ng-maxlength="15"
-                                           ng-minlength="2"
-                                           ng-required="true"/>
-                                    <div class="help-block" style="color: red" ng-messages="formInit.tiNome.$error" ng-show="formInit.tiNome.$dirty">
-                                        <div ng-messages-include="app/pages/components/msg-cadastro.html"></div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <md-input-container>
+                                <label>Nome</label>
+                                <input ng-model="viewModel.nome" >
+                            </md-input-container>
+                            <md-input-container>
+                                <label>E-mail</label>
+                                <input ng-model="viewModel.email" >
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Cor</label>
+                                <input ng-model="viewModel.cor" >
+                            </md-input-container>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="tiTel">
-                                        <label>Celular:</label>
-                                        <span class="fa fa-asterisk" style="color: red"/>
-                                    </label>
-                                    <input
-                                            id="tiTel"
-                                            class="form-control"
-                                            placeholder="Informe seu celular"
-                                            required
-                                            type="tel"
-                                            ng-model="viewModel.tel"
-                                            name="tiTel"
-                                            ng-maxlength="15"
-                                            ng-minlength="9"
-                                            ng-required="true"/>
-                                    <div class="help-block" style="color: red" ng-messages="formInit.tiTel.$error" ng-show="formInit.tiTel.$dirty">
-                                        <div ng-messages-include="app/pages/components/msg-cadastro.html"></div>
-                                    </div>
-                                </div>
-
-                            </div>
+                    </div>
+                    <!--div class="row" >
+                        <div class="pull-right">
+                            <button type="submit" class="fa fa-save btn btn-primary" ng-disabled="formInit.$invalid"/>
+                            <div style="width: 10px"></div>
                         </div>
-                        <div class="row" >
-                            <div class="pull-right">
-                                <button type="submit" class="fa fa-save btn btn-primary" ng-disabled="formInit.$invalid"/>
-                                <div style="width: 10px"></div>
-                            </div>
-                        </div>
-                    </form>
+                    </div -->
                 </div>
+                <div class="panel-footer">
+                        <md-button class="md-raised md-primary" ng-click="save()">Gravar</md-button>
+                        <md-button class="md-raised" ng-click="clear()">Limpar</md-button>
+                </div>
+                <!--/form -->
             </div>
-            <br><br>
-            <div class="table-responsive">
+            <div ui-grid="gridOptions"></div>
+
+            <!-- <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead><td>Nome</td><td>Celular</td><td colspan="2">Ação</td></thead>
                     <tbody>
@@ -101,8 +81,7 @@
                         </td>
                     </tr>
                     </tbody>
-                </table>
-            </div>
+                </table>-->
         </div>
 
     </body>

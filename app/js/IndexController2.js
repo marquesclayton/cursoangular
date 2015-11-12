@@ -5,9 +5,9 @@
 angular.module('app')
     .controller('IndexController2', IndexController2);
 
-IndexController2.$inject = ['$scope'];
+IndexController2.$inject = ['$scope','AlertService'];
 
-function IndexController2($scope){
+function IndexController2($scope,AlertService){
 
 /*******   Declarações   *******/
 
@@ -24,6 +24,22 @@ function IndexController2($scope){
     $scope.remove = remove;
     $scope.update = update;
     $scope.save = save;
+    $scope.clear = clear;
+    $scope.getRowStyle = getRowStyle;
+
+/*******  Montagem do grid   *******/
+
+$scope.gridOptions = {
+    data:'list',
+    columnDefs: [
+        {name: 'Nome', field: 'nome', width:150}, //, cellTemplate: 'app/templates/cell-template.html'},
+        {name: 'E-mail', field: 'email', width:250, cellTemplate: 'app/pages/templates/cell-template.html'},
+        {name: 'Cor', field: 'cor', width:50, cellTemplate: 'app/pages/templates/cell-template.html'},
+        {name: '', field: 'optAlterar', cellTemplate: 'app/pages/templates/cell-template-button.html'},
+    ],
+    enableRowSelection: true,
+    rowTemplate: 'app/pages/templates/row-template.html'
+};
 
 /*******   Final da declarações   *******/
 
@@ -38,38 +54,45 @@ function IndexController2($scope){
         $scope.styleInput.borderStyle= 'solid';
         $scope.styleInput.borderWidth= 'thick';
     }
+
+    function getRowStyle(entidade){
+        var resultStyle = {};
+        if(entidade.cor){
+            resultStyle.backgroundColor = entidade.cor;
+        }
+        return resultStyle;
+    }
 /*******   Métodos de persistência   *******/
     function save(){
 
-        if($scope.formInit.$invalid === false) {
-            var item = angular.copy($scope.viewModel);
+        var item = angular.copy($scope.viewModel);
 
-            if (selectedIndex === undefined) {
-                $scope.list.push(item);
+        if (selectedIndex === undefined) {
+            $scope.list.push(item);
 
-                $scope.msg('Ok', "Registro inserido com sucesso.", 'success');
-            } else {
-                $scope.list.splice(selectedIndex, 1, item);
-                $scope.msg('Ok', "Registro alterado com sucesso.", 'success');
-            }
-            $scope.viewModel = {};
-            selectedIndex = undefined;
-            $scope.formInit.$setPristine();
+            AlertService.showAlertRecordInsertedSucess();
         } else {
-            $scope.msg('Error', "Problema com os dados.", 'danger');
+            $scope.list.splice(selectedIndex, 1, item);
+            AlertService.showAlertRecordUpdatedSucess();
         }
+        clear();
     }
 
-    function remove(item){
-        selectedIndex = $scope.list.indexOf(item);
-
-        $scope.list.splice(selectedIndex,1);
-
+    function clear() {
+        $scope.viewModel = {};
         selectedIndex = undefined;
     }
 
-    function update(item){
-        selectedIndex = $scope.list.indexOf(item);
+    function remove(index){
+        selectedIndex = index;
+
+        $scope.list.splice(selectedIndex,1);
+
+        clear();
+    }
+
+    function update(item, index){
+        selectedIndex = index;
 
         $scope.viewModel = angular.copy(item);
     }
