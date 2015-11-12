@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no" charset="UTF-8">
+        <title> Curso AngularJS</title>
+
+        <!-- Folhas de estilo  (  CSS  ) -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+        <link rel="stylesheet" href="bower_components/angular-ui-growl/css/growl.css"/>
+
+        <!-- Importações de framworks  -->
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.js"></script>
+        <script src="bower_components/angular-ui-growl/src/growl.js"></script>
+
+        <!-- Importações do negócio  -->
+        <script src="app/js/app.js"></script>
+        <script src="app/js/IndexController2.js"></script>
+
+
+        <link rel="stylesheet" href="app/css/app.css"/>
+    </head>
+    <body ng-app="app">
+        <div ng-controller="IndexController2" class="container container-fluid">
+            <div class=" panel panel-primary teste-css">
+                <div class="page-header"><b>Cadastro</b></div>
+                <div class="panel-body">
+                    <form novalidate name="formInit" ng-submit="save()">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="tiNome">
+                                        <label>Nome:</label>
+                                        <span class="fa fa-asterisk" style="color: red"/>
+                                    </label>
+                                    <input id="tiNome"
+                                           class="form-control"
+                                           placeholder="Informe seu nome"
+                                           required
+                                           type="text"
+                                           ng-model="viewModel.nome"
+                                           name="tiNome"
+                                           ng-maxlength="15"
+                                           ng-minlength="2"
+                                           ng-required="true"/>
+                                    <div class="help-block" style="color: red" ng-messages="formInit.tiNome.$error" ng-show="formInit.tiNome.$dirty">
+                                        <div ng-messages-include="app/pages/components/msg-cadastro.html"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="tiTel">
+                                        <label>Celular:</label>
+                                        <span class="fa fa-asterisk" style="color: red"/>
+                                    </label>
+                                    <input
+                                            id="tiTel"
+                                            class="form-control"
+                                            placeholder="Informe seu celular"
+                                            required
+                                            type="tel"
+                                            ng-model="viewModel.tel"
+                                            name="tiTel"
+                                            ng-maxlength="15"
+                                            ng-minlength="9"
+                                            ng-required="true"/>
+                                    <div class="help-block" style="color: red" ng-messages="formInit.tiTel.$error" ng-show="formInit.tiTel.$dirty">
+                                        <div ng-messages-include="app/pages/components/msg-cadastro.html"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="pull-right">
+                                <button type="submit" class="fa fa-save btn btn-primary" ng-disabled="formInit.$invalid"/>
+                                <div style="width: 10px"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br><br>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead><td>Nome</td><td>Celular</td><td colspan="2">Ação</td></thead>
+                    <tbody>
+                    <tr ng-repeat="item in list">
+                        <td ng-bind="item.nome"/>
+                        <td ng-bind="item.tel"/>
+                        <td class="columnAction">
+                            <button type="button" class="fa fa-edit btn btn-warning" ng-click="update(item)"/>
+                        </td>
+                        <td class="columnAction">
+                            <button type="button" class="fa fa-remove btn btn-danger" ng-click="remove(item)"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </body>
+</html>

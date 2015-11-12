@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="app/js/app.js"></script>
+    <script src="app/js/index-controller.js"></script>
+</head>
+<body ng-controller="IndexController as main">
+    <div>
+        <label style="font-weight: bold"> Nome:</label> <input type="text" ng-model="viewModel.nome"/><br>
+        <label style="font-weight: bold"> Telefone:</label> <input type="text" ng-model="viewModel.tel"/><br><br>
+
+        <button type="button" ng-click="save()"> Gravar registro</button>
+
+    </div>
+    <table>
+        <tr ng-repeat="item in list">
+            <td ng-bind="item.nome"/>
+            <td ng-bind="item.tel"/>
+        </tr>
+    </table>
+</body>
+</html>

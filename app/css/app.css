@@ -1,0 +1,39 @@
+input{
+    border-style: solid;
+    border-width: thick;
+}
+
+.error{
+    border-color: red;
+}
+
+.warning{
+    border-color: orange;
+}
+
+.normal{
+    border-color: black;
+}
+
+.columnAction{
+    width: 30px;
+    text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+    .teste-css {
+         background-color: gray;
+     }
+
+}
+
+@media screen and (min-width: 401px) {
+    .teste-css {
+        /*background-color: #bce8f1;*/
+    }
+    .page-header{
+        text-align: center;
+        font-size: medium;
+        font-family: Arial;
+    }
+}
